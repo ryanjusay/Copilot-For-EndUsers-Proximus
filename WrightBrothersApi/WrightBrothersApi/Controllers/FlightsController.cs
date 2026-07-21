@@ -64,11 +64,6 @@ public class FlightsController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// Creates a new flight and stores it in memory.
-    /// </summary>
-    /// <param name="flight">The flight payload to create.</param>
-    /// <returns>The created flight with a location header for retrieval.</returns>
     [HttpPost]
     public ActionResult<Flight> Post([FromBody] Flight flight)
     {
@@ -79,11 +74,6 @@ public class FlightsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = flight.Id }, flight);
     }
 
-    /// <summary>
-    /// Retrieves a flight by identifier.
-    /// </summary>
-    /// <param name="id">The unique identifier of the flight.</param>
-    /// <returns>The matching flight when found; otherwise a not-found response.</returns>
     [HttpGet("{id}")]
     public ActionResult<Flight> GetById(int id)
     {
@@ -99,12 +89,6 @@ public class FlightsController : ControllerBase
         return Ok(flight);
     }
 
-    /// <summary>
-    /// Updates the status of a flight after validating allowed state transitions.
-    /// </summary>
-    /// <param name="id">The identifier of the flight to update.</param>
-    /// <param name="newStatus">The target status for the flight.</param>
-    /// <returns>An OK response when status changes; otherwise a bad-request or not-found response.</returns>
     [HttpPost("{id}/status")]
     public ActionResult UpdateFlightStatus(int id, FlightStatus newStatus)
     {
@@ -174,12 +158,6 @@ public class FlightsController : ControllerBase
     }
 
 
-    /// <summary>
-    /// Simulates a flight over the provided distance and consumes fuel per step.
-    /// </summary>
-    /// <param name="id">The identifier of the flight to simulate.</param>
-    /// <param name="flightLength">The number of distance units to simulate.</param>
-    /// <returns>An OK response when the simulation completes.</returns>
     [HttpPost("{id}/takeFlight/{flightLength}")]
     public ActionResult takeFlight(int id, int flightLength)
     {
@@ -207,11 +185,6 @@ public class FlightsController : ControllerBase
         return Ok($"Flight took off and flew {flightLength} kilometers/miles.");
     }
 
-    /// <summary>
-    /// Simulates a lightning strike scenario for a flight.
-    /// </summary>
-    /// <param name="id">The identifier of the impacted flight.</param>
-    /// <returns>An OK response when recovery succeeds.</returns>
     [HttpPost("{id}/lightningStrike")]
     public ActionResult lightningStrike(int id)
     {
@@ -221,11 +194,6 @@ public class FlightsController : ControllerBase
         return Ok($"Recovers from lightning strike.");
     }
 
-    /// <summary>
-    /// Runs a CPU-intensive prime computation to simulate aerodynamic calculations.
-    /// </summary>
-    /// <param name="id">The identifier of the flight context.</param>
-    /// <returns>An OK response when calculations complete.</returns>
     [HttpPost("{id}/calculateAerodynamics")]
     public ActionResult calculateAerodynamics(int id)
     {
@@ -241,12 +209,6 @@ public class FlightsController : ControllerBase
         return Ok($"Calculated aerodynamics.");
     }
 
-    /// <summary>
-    /// Calculates all prime numbers within an inclusive range.
-    /// </summary>
-    /// <param name="start">The start of the range.</param>
-    /// <param name="end">The end of the range.</param>
-    /// <returns>A list containing all prime numbers in the range.</returns>
     public static List<int> CalculatePrimes(int start, int end)
     {
         List<int> primes = new List<int>();
@@ -260,11 +222,6 @@ public class FlightsController : ControllerBase
         return primes;
     }
 
-    /// <summary>
-    /// Determines whether the provided number is prime.
-    /// </summary>
-    /// <param name="number">The number to evaluate.</param>
-    /// <returns><c>true</c> when the number is prime; otherwise <c>false</c>.</returns>
     public static bool IsPrime(int number)
     {
         if (number <= 1) return false;
